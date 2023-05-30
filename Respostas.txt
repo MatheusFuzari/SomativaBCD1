@@ -1,0 +1,19 @@
+#A
+select * from tarefas where id not in(select t.id from tarefas t join tarefa_status ts on t.id = ts.tarefaFK);
+#B
+select l.*, count(*) from locais l join tarefas t on l.id = t.localFK group by t.localFK having count(l.id)>2;
+#C
+select u.*,count(*) from tarefas t join tarefas_responsaveis r on t.id = r.tarefaFK join usuarios u on r.responsavelFK = u.id group by u.id having count(u.id)>=2;
+#D
+select e.*,t.* from tarefas t join locais l on t.localFK = l.id join eventos e on l.id = e.localFK join tarefa_status ts on t.id = ts.tarefaFK
+where e.inicio > now() and ts.status != 'Encerrada' group by e.id,t.id;
+#E
+select l.*, count(*) from locais l join tarefas t on l.id = t.localFK group by l.id;
+#F
+select l.*, count(*) from locais l join tarefas t on l.id = t.localFK join tarefa_status ts on t.id = ts.tarefaFK where ts.status = 'Encerrada' group by l.id;
+#G
+select u.*,count(*) from usuarios u join tarefas_responsaveis tr on u.id = tr.responsavelFK group by u.id;
+#H
+select u.*,count(*) from usuarios u join tarefas_responsaveis tr on u.id = tr.responsavelFK join tarefas t on tr.tarefaFK = t.id join tarefa_status ts on t.id = ts.tarefaFK where ts.status = 'Encerrada' group by u.id;
+#I
+select *, AVG(d.qnt) from locais l join (select localFK, month(dataAbertura)as mes,count(*) as qnt from tarefas group by mes,localFK) d on l.id = d.localFK group by d.mes,l.id;
