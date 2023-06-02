@@ -1,0 +1,3 @@
+Link pro cloud console : mysql -h hogwartssomativa.mysql.database.azure.com -u fuzari -p '--ssl-ca=DigiCertGlobalRootCA.crt.pem'
+Senha : #LawRaw3
+Banco : formativahogwarts
